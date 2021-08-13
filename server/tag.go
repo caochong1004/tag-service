@@ -2,9 +2,8 @@ package server
 
 import (
 	"context"
-	"errors"
-
 	"github.com/longjoy/tag-service/pkg/bapi"
+	"github.com/longjoy/tag-service/pkg/errcode"
 	"github.com/longjoy/tag-service/proto"
 
 	"encoding/json"
@@ -18,6 +17,12 @@ func NewTagServer() *TagServer  {
 }
 
 func (t *TagServer) GetTagList(ctx context.Context, r *proto.GetTagListRequest) (*proto.GetTagListReply, error) {
+	//resp, err := http.Get(
+	//	"http://127.0.0.1:8000/api/v1/tags?name=" + r.GetName(),
+	//	)
+	//if err != nil {
+	//	return nil, errcode.TogRPCError(errcode.ErrorGetTagListFail)
+	//}
 	api := 	bapi.NewAPI("127.0.0.1:8000")
 	body, err := api.GetTagList(ctx, r.GetName())
 	if err != nil {
@@ -27,7 +32,7 @@ func (t *TagServer) GetTagList(ctx context.Context, r *proto.GetTagListRequest) 
 	tagList := proto.GetTagListReply{}
 	err = json.Unmarshal(body, &tagList)
 	if err != nil {
-		return nil, errors.New("grpc 失败")
+		return nil, errcode.TogRPCError(errcode.Fail)
 	}
 	return &tagList, nil
 }
