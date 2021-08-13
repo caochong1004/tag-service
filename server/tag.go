@@ -2,6 +2,10 @@ package server
 
 import (
 	"context"
+	"errors"
+
+	"github.com/longjoy/tag-service/pkg/bapi"
+	"github.com/longjoy/tag-service/proto"
 
 	"encoding/json"
 )
@@ -23,7 +27,7 @@ func (t *TagServer) GetTagList(ctx context.Context, r *proto.GetTagListRequest) 
 	tagList := proto.GetTagListReply{}
 	err = json.Unmarshal(body, &tagList)
 	if err != nil {
-		return nil, errcode.TogRPCError(errcode.Fail)
+		return nil, errors.New("grpc 失败")
 	}
 	return &tagList, nil
 }

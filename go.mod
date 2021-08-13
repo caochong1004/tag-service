@@ -3,6 +3,7 @@ module github.com/longjoy/tag-service
 go 1.16
 
 require (
+	github.com/fullstorydev/grpcurl v1.8.2 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	golang.org/x/net v0.0.0-20210805182204-aaa1db679c0d // indirect
 	golang.org/x/sys v0.0.0-20210809222454-d867a43fc93e // indirect
